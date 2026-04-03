@@ -1,0 +1,45 @@
+.edit-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.edit-page .ui.segment {
+  padding: 36px 32px !important;
+  background: var(--surface) !important;
+}
+
+.page-title {
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  color: var(--text) !important;
+  margin-bottom: 4px !important;
+}
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.edit-id {
+  font-size: 0.82rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 24px !important;
+}
+
+.edit-id strong {
+  color: var(--text-secondary);
+  font-family: 'SF Mono', 'Consolas', 'Courier New', monospace;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 768px) {
+  .edit-page .ui.segment {
+    padding: 24px 18px !important;
+  }
+
+  .page-title {
+    font-size: 1.25rem !important;
+  }
+}

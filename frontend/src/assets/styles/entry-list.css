@@ -1,0 +1,192 @@
+.entry-list-wrap {
+  overflow-x: auto;
+}
+
+/* ── Empty State ─────────────────────────────────────────────── */
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.35;
+}
+
+.empty-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 4px;
+}
+
+.empty-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Table ────────────────────────────────────────────────────── */
+
+.entries-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+}
+
+.entries-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  background: var(--surface);
+}
+
+.entries-table tbody tr {
+  transition: background var(--transition);
+}
+
+.entries-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+.entries-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+/* ── Badges & Pills ──────────────────────────────────────────── */
+
+.code-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Consolas', 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}
+
+.category-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+/* ── Cells ────────────────────────────────────────────────────── */
+
+.response-cell {
+  max-width: 300px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.date-cell {
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.th-actions {
+  text-align: right !important;
+  width: 140px;
+}
+
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── Action Buttons ──────────────────────────────────────────── */
+
+.action-edit {
+  color: var(--primary) !important;
+  background: var(--primary-light) !important;
+  border: none !important;
+  margin-right: 6px !important;
+  font-size: 0.8rem !important;
+  padding: 7px 14px !important;
+}
+
+.action-edit:hover {
+  background: var(--primary-100) !important;
+  color: var(--primary-hover) !important;
+}
+
+.action-delete {
+  color: var(--danger) !important;
+  background: var(--danger-light) !important;
+  border: none !important;
+  font-size: 0.8rem !important;
+  padding: 7px 14px !important;
+}
+
+.action-delete:hover {
+  background: #fecaca !important;
+}
+
+/* ── Responsive: Stack on Mobile ─────────────────────────────── */
+
+@media (max-width: 768px) {
+  .entries-table thead {
+    display: none;
+  }
+
+  .entries-table,
+  .entries-table tbody {
+    display: block;
+  }
+
+  .entries-table tbody tr {
+    display: block;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .entries-table tbody td {
+    display: block;
+    padding: 4px 0;
+    border-bottom: none;
+    text-align: left;
+  }
+
+  .entries-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .response-cell {
+    max-width: none;
+  }
+
+  .actions-cell {
+    text-align: left;
+    padding-top: 12px !important;
+  }
+}

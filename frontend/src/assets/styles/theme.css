@@ -1,0 +1,154 @@
+/* ── Helpdesk Response Library — Global Theme ────────────────── */
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
+
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --success: #059669;
+  --success-light: #ecfdf5;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --warning: #d97706;
+  --warning-light: #fffbeb;
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --transition: 0.2s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── Semantic UI Overrides ───────────────────────────────────── */
+
+.ui.button {
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-family: var(--font) !important;
+  transition: all var(--transition) !important;
+}
+
+.ui.primary.button {
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+
+.ui.primary.button:hover {
+  background: var(--primary-hover) !important;
+}
+
+.ui.segment {
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.ui.container {
+  max-width: 1200px !important;
+}
+
+.ui.header {
+  font-family: var(--font) !important;
+}
+
+.ui.form .field > label {
+  font-family: var(--font) !important;
+}
+
+.ui.info.message {
+  background: var(--primary-50) !important;
+  color: var(--primary-800) !important;
+  border: 1px solid var(--primary-100) !important;
+  box-shadow: none !important;
+  border-radius: var(--radius) !important;
+  font-size: 0.875rem !important;
+}
+
+/* ── Flash Messages ──────────────────────────────────────────── */
+
+.flash-message {
+  border-radius: var(--radius) !important;
+  font-family: var(--font) !important;
+}
+
+/* ── Selection ───────────────────────────────────────────────── */
+
+::selection {
+  background: var(--primary-100);
+  color: var(--primary-800);
+}
+
+/* ── Scrollbar (Webkit) ──────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ── Global Link Styles ──────────────────────────────────────── */
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}

@@ -1,0 +1,33 @@
+.form-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.form-page .ui.segment {
+  padding: 36px 32px !important;
+  background: var(--surface) !important;
+}
+
+.page-title {
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  color: var(--text) !important;
+  margin-bottom: 4px !important;
+}
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .form-page .ui.segment {
+    padding: 24px 18px !important;
+  }
+
+  .page-title {
+    font-size: 1.25rem !important;
+  }
+}

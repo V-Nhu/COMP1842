@@ -1,0 +1,77 @@
+.entry-form {
+  max-width: 600px;
+}
+
+.entry-form .field {
+  margin-bottom: 22px !important;
+}
+
+.entry-form .field > label {
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 8px !important;
+  display: block;
+}
+
+.entry-form .field input[type="text"],
+.entry-form .field textarea {
+  border: 1.5px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 11px 14px !important;
+  font-size: 0.9rem !important;
+  font-family: var(--font) !important;
+  color: var(--text) !important;
+  background: var(--surface) !important;
+  transition: border-color var(--transition), box-shadow var(--transition) !important;
+  outline: none;
+  width: 100%;
+}
+
+.entry-form .field input[type="text"]::placeholder,
+.entry-form .field textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.entry-form .field input[type="text"]:focus,
+.entry-form .field textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--primary-light) !important;
+}
+
+.entry-form .field.error input[type="text"],
+.entry-form .field.error textarea {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px var(--danger-light) !important;
+}
+
+.entry-form .field.error > label {
+  color: var(--danger) !important;
+}
+
+.entry-form .field input[type="text"]:disabled,
+.entry-form .field textarea:disabled {
+  background: var(--bg) !important;
+  color: var(--text-muted) !important;
+  cursor: not-allowed;
+}
+
+/* ── Form Actions ────────────────────────────────────────────── */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.cancel-btn {
+  color: var(--text-secondary) !important;
+  background: var(--bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.cancel-btn:hover {
+  background: var(--border-light) !important;
+  color: var(--text) !important;
+}

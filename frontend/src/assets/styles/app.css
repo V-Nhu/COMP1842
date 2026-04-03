@@ -1,0 +1,32 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.page-shell {
+  flex: 1;
+  padding: 32px 24px 48px;
+  width: 100%;
+}
+
+.flash-global {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 1000;
+  max-width: 420px;
+}
+
+@media (max-width: 768px) {
+  .page-shell {
+    padding: 20px 16px 32px;
+  }
+
+  .flash-global {
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+}
