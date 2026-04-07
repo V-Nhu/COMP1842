@@ -1,32 +1,60 @@
 <template>
   <div class="ui container quiz-page">
-    <div class="ui segment">
+    <div class="quiz-card-main">
       <div class="quiz-header">
-        <h2 class="ui header quiz-title">Training Quiz</h2>
-        <p class="quiz-subtitle">Match each issue code with the correct response to reinforce your knowledge.</p>
+        <div class="quiz-header-row">
+          <div class="quiz-header-icon">
+            <i class="graduation cap icon"></i>
+          </div>
+          <div>
+            <h2 class="quiz-title">Learning Hub</h2>
+            <p class="quiz-subtitle">Strengthen support readiness with interactive practice and response-based assessments.</p>
+          </div>
+        </div>
       </div>
 
+      <div class="quiz-divider"></div>
+
       <!-- Loading -->
-      <div v-if="isLoading" class="ui active inline loader" style="display:block;margin:32px auto;"></div>
+      <div v-if="isLoading" class="quiz-loader">
+        <div class="ui active inline centered loader"></div>
+        <p class="quiz-loader-text">Preparing your quiz...</p>
+      </div>
 
       <!-- Not enough entries -->
-      <div v-else-if="allEntries.length < 2" class="ui warning message">
-        You need at least 2 helpdesk entries to start the quiz.
-        <router-link to="/entries/new">Add entries now</router-link>.
+      <div v-else-if="allEntries.length < 2" class="quiz-empty">
+        <div class="quiz-empty-icon">
+          <i class="exclamation triangle icon"></i>
+        </div>
+        <p class="quiz-empty-title">Not Enough Entries</p>
+        <p class="quiz-empty-text">You need at least 2 helpdesk entries to start the quiz.</p>
+        <router-link class="ui primary button" to="/entries/new">
+          <i class="plus icon"></i> Add Entries Now
+        </router-link>
       </div>
 
       <!-- Quiz finished -->
       <div v-else-if="quizFinished" class="quiz-result">
         <div class="result-card">
+          <div class="result-emoji">{{ scorePercent >= 80 ? '🎉' : scorePercent >= 50 ? '👍' : '💪' }}</div>
           <div class="result-score">{{ score }} / {{ totalQuestions }}</div>
           <p class="result-label">Questions Answered Correctly</p>
           <div class="result-bar-track">
             <div class="result-bar-fill" :style="{ width: scorePercent + '%' }"></div>
           </div>
-          <p class="result-percent">{{ scorePercent }}%</p>
+          <p class="result-percent">{{ scorePercent }}% Score</p>
+          <div class="result-message">
+            <span v-if="scorePercent >= 80">Excellent work! You really know your stuff.</span>
+            <span v-else-if="scorePercent >= 50">Good job! Keep practising to improve.</span>
+            <span v-else>Keep learning! Review the entries and try again.</span>
+          </div>
           <div class="result-actions">
-            <button class="ui primary button" @click="restartQuiz">Restart Quiz</button>
-            <router-link class="ui button" to="/entries">Go to Entries</router-link>
+            <button class="ui primary button" @click="restartQuiz">
+              <i class="redo icon"></i> Restart Quiz
+            </button>
+            <router-link class="ui button result-secondary-btn" to="/entries">
+              <i class="list icon"></i> Go to Entries
+            </router-link>
           </div>
         </div>
       </div>
@@ -34,7 +62,10 @@
       <!-- Active question -->
       <div v-else>
         <div class="quiz-progress">
-          <span class="progress-text">Question {{ currentIndex + 1 }} of {{ totalQuestions }}</span>
+          <div class="progress-header">
+            <span class="progress-text">Question {{ currentIndex + 1 }} of {{ totalQuestions }}</span>
+            <span class="progress-score">Score: {{ score }}</span>
+          </div>
           <div class="progress-bar-track">
             <div class="progress-bar-fill" :style="{ width: progressPercent + '%' }"></div>
           </div>
@@ -49,19 +80,25 @@
         />
 
         <div v-if="answerLocked" class="quiz-feedback" :class="lastCorrect ? 'feedback-correct' : 'feedback-wrong'">
-          <strong>{{ lastCorrect ? 'Correct!' : 'Incorrect.' }}</strong>
-          <span v-if="!lastCorrect"> The answer was: {{ currentQuestion.correctAnswer }}</span>
+          <div class="feedback-icon">{{ lastCorrect ? '✓' : '✗' }}</div>
+          <div class="feedback-content">
+            <strong>{{ lastCorrect ? 'Correct!' : 'Incorrect' }}</strong>
+            <span v-if="!lastCorrect" class="feedback-detail">The correct answer was: {{ currentQuestion.correctAnswer }}</span>
+          </div>
         </div>
 
         <div v-if="answerLocked" class="quiz-next">
           <button class="ui primary button" @click="nextQuestion">
             {{ currentIndex + 1 < totalQuestions ? 'Next Question' : 'See Results' }}
+            <i class="arrow right icon"></i>
           </button>
         </div>
       </div>
 
       <div class="quiz-footer" v-if="!quizFinished && !isLoading && allEntries.length >= 2">
-        <router-link class="ui button" to="/entries">Go to Entries</router-link>
+        <router-link class="ui button quiz-footer-btn" to="/entries">
+          <i class="arrow left icon"></i> Back to Entries
+        </router-link>
       </div>
     </div>
   </div>

@@ -1,10 +1,22 @@
 <template>
   <div class="ui container edit-page">
-    <div class="ui segment">
-      <h2 class="ui header page-title">Edit Entry</h2>
-      <p class="page-subtitle">Update the response content and category details.</p>
+    <div class="form-card">
+      <div class="form-header">
+        <div class="form-header-icon form-header-icon--edit">
+          <i class="pencil icon"></i>
+        </div>
+        <div>
+          <h2 class="page-title">Edit Entry</h2>
+          <p class="page-subtitle">Update the response content and category details.</p>
+        </div>
+      </div>
 
-      <div v-if="isLoading" class="ui active inline loader" style="display:block;margin:32px auto;"></div>
+      <div class="form-divider"></div>
+
+      <div v-if="isLoading" class="form-loader">
+        <div class="ui active inline centered loader"></div>
+        <p class="loader-text">Loading entry data...</p>
+      </div>
 
       <EntryForm
         v-else
@@ -12,7 +24,9 @@
         submit-text="Update Entry"
         :disabled="isSaving"
         :loading="isSaving"
+        :error-message="submissionError"
         @submit="handleUpdate"
+        @clear-error="clearSubmissionError"
       />
     </div>
   </div>
@@ -41,13 +55,17 @@ export default {
         responseText: ''
       },
       isLoading: false,
-      isSaving: false
+      isSaving: false,
+      submissionError: ''
     }
   },
   created() {
     this.loadEntry()
   },
   methods: {
+    clearSubmissionError() {
+      this.submissionError = ''
+    },
     async loadEntry() {
       this.isLoading = true
       try {
@@ -65,12 +83,19 @@ export default {
     },
     async handleUpdate(formData) {
       this.isSaving = true
+      this.submissionError = ''
       try {
         await updateEntry(this.id, formData)
-        this.flashMessage.success({ message: 'Entry updated successfully.', time: 2500 })
-        this.$router.push('/entries')
+        window.sessionStorage.setItem('entriesFlashMessage', JSON.stringify({
+          type: 'success',
+          message: 'Entry updated successfully.',
+          time: 2500
+        }))
+        window.location.assign('/entries')
       } catch (err) {
-        this.flashMessage.error({ message: 'Failed to update entry. Please try again.', time: 3500 })
+        const message = err?.response?.data?.message || 'Failed to update entry. Please try again.'
+        this.submissionError = message
+        this.flashMessage.error({ message, time: 3500 })
       } finally {
         this.isSaving = false
       }

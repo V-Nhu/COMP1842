@@ -5,7 +5,8 @@ const EntrySchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    uppercase: true
+    uppercase: true,
+    unique: true
   },
   responseText: {
     type: String,

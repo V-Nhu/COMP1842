@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const entryRoutes = require('./api/routes/entry.routes')
+const Entry = require('./api/models/Entry')
 
 const app = express()
 
@@ -13,7 +14,8 @@ app.use(express.json())
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
+    await Entry.syncIndexes()
     console.log('MongoDB connected')
   })
   .catch((err) => {

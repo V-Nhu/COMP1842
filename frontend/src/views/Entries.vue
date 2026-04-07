@@ -1,41 +1,57 @@
 <template>
   <div class="ui container entries-page">
-    <section class="ui segment entries-panel">
+    <section class="entries-panel">
       <div class="entries-header">
-        <div>
-          <h2 class="ui header section-title">Helpdesk Entries</h2>
+        <div class="entries-header-text">
+          <h2 class="section-title">
+            <i class="clipboard list icon title-icon"></i>
+            Knowledge Base
+          </h2>
           <p class="section-subtitle">
-            Browse all support responses, search by issue code, or filter by category.
+            Browse support knowledge, search by issue code, or filter entries by category.
           </p>
         </div>
-        <router-link class="ui right floated primary button add-btn" to="/entries/new">
-          Add New Entry
+        <router-link class="ui primary button add-btn" to="/entries/new">
+          <i class="plus icon"></i> Add New Entry
         </router-link>
       </div>
 
-      <form class="filter-row" @submit.prevent="applyFilter">
-        <input
-          v-model.trim="searchCode"
-          type="text"
-          class="filter-input"
-          placeholder="Search by issue code"
-        >
-        <select v-model="selectedCategory" class="filter-select">
-          <option value="">All Categories</option>
-          <option v-for="option in categoryOptions" :key="option" :value="option">
-            {{ formatCategory(option) }}
-          </option>
-        </select>
-        <button type="submit" class="ui button apply-btn">Apply Search / Filter</button>
-      </form>
-
-      <div class="actions-row">
-        <button class="ui button load-all-btn" type="button" @click="loadAllEntries">
-          Load All Entries
-        </button>
+      <div class="toolbar-card">
+        <form class="filter-row" @submit.prevent="applyFilter">
+          <div class="filter-group">
+            <i class="search icon filter-icon"></i>
+            <input
+              v-model.trim="searchCode"
+              type="text"
+              class="filter-input"
+              placeholder="Search by issue code..."
+            >
+          </div>
+          <div class="filter-group">
+            <i class="filter icon filter-icon"></i>
+            <select v-model="selectedCategory" class="filter-select">
+              <option value="">All Categories</option>
+              <option v-for="option in categoryOptions" :key="option" :value="option">
+                {{ formatCategory(option) }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="ui primary button apply-btn">Search</button>
+          <button type="button" class="ui button reset-btn" @click="loadAllEntries">Reset</button>
+        </form>
       </div>
 
-      <div v-if="isLoading" class="ui active inline loader list-loader"></div>
+      <div class="entries-meta">
+        <span class="entries-count">
+          <i class="database icon"></i>
+          {{ entries.length }} {{ entries.length === 1 ? 'entry' : 'entries' }} found
+        </span>
+      </div>
+
+      <div v-if="isLoading" class="loader-wrap">
+        <div class="ui active inline centered loader"></div>
+        <p class="loader-text">Loading entries...</p>
+      </div>
 
       <div class="list-wrap" v-else>
         <EntryList :entries="entries" @delete="handleDelete" />
@@ -69,9 +85,32 @@ export default {
     }
   },
   created() {
+    this.showPendingFlashMessage()
     this.loadEntries()
   },
   methods: {
+    showPendingFlashMessage() {
+      const rawMessage = window.sessionStorage.getItem('entriesFlashMessage')
+
+      if (!rawMessage) {
+        return
+      }
+
+      window.sessionStorage.removeItem('entriesFlashMessage')
+
+      try {
+        const flash = JSON.parse(rawMessage)
+        const flashType = flash?.type
+        const flashMessage = flash?.message
+        const flashTime = flash?.time || 2500
+
+        if (flashType && flashMessage && this.flashMessage?.[flashType]) {
+          this.flashMessage[flashType]({ message: flashMessage, time: flashTime })
+        }
+      } catch (err) {
+        window.sessionStorage.removeItem('entriesFlashMessage')
+      }
+    },
     async loadEntries() {
       this.isLoading = true
       try {

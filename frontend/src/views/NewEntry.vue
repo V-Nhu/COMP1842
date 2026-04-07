@@ -1,15 +1,26 @@
 <template>
   <div class="ui container form-page">
-    <div class="ui segment">
-      <h2 class="ui header page-title">Add New Entry</h2>
-      <p class="page-subtitle">Create a standard response template for recurring support issues.</p>
+    <div class="form-card">
+      <div class="form-header">
+        <div class="form-header-icon">
+          <i class="plus icon"></i>
+        </div>
+        <div>
+          <h2 class="page-title">Add New Entry</h2>
+          <p class="page-subtitle">Create a standard response template for recurring support issues.</p>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
 
       <EntryForm
         :value="form"
         submit-text="Save Entry"
         :disabled="isSaving"
         :loading="isSaving"
+        :error-message="submissionError"
         @submit="handleCreate"
+        @clear-error="clearSubmissionError"
       />
     </div>
   </div>
@@ -31,18 +42,29 @@ export default {
         category: '',
         responseText: ''
       },
-      isSaving: false
+      isSaving: false,
+      submissionError: ''
     }
   },
   methods: {
+    clearSubmissionError() {
+      this.submissionError = ''
+    },
     async handleCreate(formData) {
       this.isSaving = true
+      this.submissionError = ''
       try {
         await createEntry(formData)
-        this.flashMessage.success({ message: 'Entry created successfully.', time: 2500 })
-        this.$router.push('/entries')
+        window.sessionStorage.setItem('entriesFlashMessage', JSON.stringify({
+          type: 'success',
+          message: 'Entry created successfully.',
+          time: 2500
+        }))
+        window.location.assign('/entries')
       } catch (err) {
-        this.flashMessage.error({ message: 'Failed to create entry. Please try again.', time: 3500 })
+        const message = err?.response?.data?.message || 'Failed to create entry. Please try again.'
+        this.submissionError = message
+        this.flashMessage.error({ message, time: 3500 })
       } finally {
         this.isSaving = false
       }

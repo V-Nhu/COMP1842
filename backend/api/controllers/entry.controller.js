@@ -1,5 +1,13 @@
 const Entry = require('../models/Entry')
 
+function getEntryWriteErrorMessage(err) {
+  if (err?.code === 11000 && err?.keyPattern?.issueCode) {
+    return 'Issue code already exists. Please use a different issue code.'
+  }
+
+  return err.message
+}
+
 // GET all entries
 exports.getAllEntries = async (req, res) => {
   try {
@@ -32,7 +40,7 @@ exports.createEntry = async (req, res) => {
     const newEntry = await entry.save()
     res.status(201).json(newEntry)
   } catch (err) {
-    res.status(400).json({ message: err.message })
+    res.status(400).json({ message: getEntryWriteErrorMessage(err) })
   }
 }
 
@@ -51,7 +59,7 @@ exports.updateEntry = async (req, res) => {
     if (!entry) return res.status(404).json({ message: 'Entry not found' })
     res.json(entry)
   } catch (err) {
-    res.status(400).json({ message: err.message })
+    res.status(400).json({ message: getEntryWriteErrorMessage(err) })
   }
 }
 

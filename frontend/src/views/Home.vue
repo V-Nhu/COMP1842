@@ -1,54 +1,84 @@
 <template>
   <div class="ui container home-page">
+    <!-- Hero Banner -->
     <section class="hero-section">
-      <h1 class="hero-title">Helpdesk Response Library</h1>
+      <div class="hero-badge">AssistBase</div>
+      <h1 class="hero-title">Smarter Knowledge for<br>Better Support</h1>
       <p class="hero-subtitle">
-        A business-focused support system for storing standard issue responses and training new
-        staff.
+        Organize support content, manage standardized responses, and prepare staff with structured learning in one platform.
       </p>
       <div class="cta-row">
-        <router-link class="ui primary button cta-primary" to="/entries">View Helpdesk Entries</router-link>
-        <router-link class="ui button cta-secondary" to="/quiz">Open Training Quiz</router-link>
+        <router-link class="ui primary button cta-primary" to="/entries">
+          <i class="list icon"></i> Browse Entries
+        </router-link>
+        <router-link class="ui button cta-secondary" to="/entries/new">
+          <i class="plus icon"></i> Add New Entry
+        </router-link>
       </div>
     </section>
 
-    <section class="features-section">
-      <h2 class="section-heading">Key Features</h2>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <div class="feature-icon">KB</div>
-          <h3>Knowledge Base</h3>
-          <p>
-            Store approved responses for common support issues such as password resets, billing
-            questions, and technical faults.
-          </p>
-        </article>
-
-        <article class="feature-card">
-          <div class="feature-icon">SM</div>
-          <h3>Search &amp; Manage</h3>
-          <p>
-            Create, view, update, and delete helpdesk entries, then search by issue code or filter
-            by category.
-          </p>
-        </article>
-
-        <article class="feature-card">
-          <div class="feature-icon">ST</div>
-          <h3>Staff Training</h3>
-          <p>
-            New support staff can practise matching issue codes with the correct response through
-            interactive quizzes.
-          </p>
-        </article>
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--entries">
+          <i class="database icon"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ entriesCount }}</span>
+          <span class="stat-label">Total Entries</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--categories">
+          <i class="tags icon"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ categoriesCount }}</span>
+          <span class="stat-label">Categories</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--quiz">
+          <i class="graduation cap icon"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">5</span>
+          <span class="stat-label">Quiz Questions</span>
+        </div>
       </div>
     </section>
+
   </div>
 </template>
 
 <script>
+import { getEntries } from '../helpers/entryService'
+
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+  data() {
+    return {
+      entriesCount: 0,
+      categoriesCount: 0
+    }
+  },
+  created() {
+    this.loadStats()
+  },
+  methods: {
+    async loadStats() {
+      try {
+        const { data } = await getEntries()
+        const entries = Array.isArray(data) ? data : []
+        this.entriesCount = entries.length
+        const cats = new Set(entries.map(e => e.category).filter(Boolean))
+        this.categoriesCount = cats.size
+      } catch (err) {
+        this.entriesCount = 0
+        this.categoriesCount = 0
+      }
+    }
+  }
 }
 </script>
 

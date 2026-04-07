@@ -1,45 +1,82 @@
 .edit-page {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
-.edit-page .ui.segment {
-  padding: 36px 32px !important;
-  background: var(--surface) !important;
+.edit-page .form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 36px 36px 32px;
 }
 
-.page-title {
-  font-size: 1.5rem !important;
-  font-weight: 800 !important;
-  color: var(--text) !important;
-  margin-bottom: 4px !important;
+.edit-page .form-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
 
-.page-subtitle {
-  font-size: 0.9rem;
+.edit-page .form-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--warning-light);
+  color: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.edit-page .form-header-icon--edit {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.edit-page .form-header-icon i.icon {
+  margin: 0 !important;
+}
+
+.edit-page .page-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.edit-page .page-subtitle {
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  margin: 0;
   line-height: 1.5;
 }
 
-.edit-id {
-  font-size: 0.82rem !important;
-  color: var(--text-muted) !important;
-  margin-bottom: 24px !important;
+.edit-page .form-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
 }
 
-.edit-id strong {
-  color: var(--text-secondary);
-  font-family: 'SF Mono', 'Consolas', 'Courier New', monospace;
-  font-size: 0.82rem;
+.form-loader {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.loader-text {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 @media (max-width: 768px) {
-  .edit-page .ui.segment {
-    padding: 24px 18px !important;
+  .edit-page .form-card {
+    padding: 24px 20px;
   }
 
-  .page-title {
-    font-size: 1.25rem !important;
+  .edit-page .page-title {
+    font-size: 1.2rem;
   }
 }

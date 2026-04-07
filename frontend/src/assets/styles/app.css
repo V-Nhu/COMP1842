@@ -7,8 +7,20 @@
 
 .page-shell {
   flex: 1;
-  padding: 32px 24px 48px;
+  padding: 36px 24px 56px;
   width: 100%;
+  animation: fadeUp 0.35s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .flash-global {
@@ -17,6 +29,12 @@
   right: 24px;
   z-index: 1000;
   max-width: 420px;
+}
+
+.flash-global .flash__message {
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-md) !important;
+  font-family: var(--font) !important;
 }
 
 @media (max-width: 768px) {

@@ -1,24 +1,26 @@
 .entry-form {
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .entry-form .field {
-  margin-bottom: 22px !important;
+  margin-bottom: 24px !important;
 }
 
 .entry-form .field > label {
   font-weight: 600 !important;
   color: var(--text) !important;
-  font-size: 0.875rem !important;
+  font-size: 0.85rem !important;
   margin-bottom: 8px !important;
   display: block;
+  letter-spacing: 0.01em;
 }
 
 .entry-form .field input[type="text"],
-.entry-form .field textarea {
+.entry-form .field textarea,
+.entry-form .field select {
   border: 1.5px solid var(--border) !important;
   border-radius: var(--radius-sm) !important;
-  padding: 11px 14px !important;
+  padding: 12px 16px !important;
   font-size: 0.9rem !important;
   font-family: var(--font) !important;
   color: var(--text) !important;
@@ -34,13 +36,15 @@
 }
 
 .entry-form .field input[type="text"]:focus,
-.entry-form .field textarea:focus {
+.entry-form .field textarea:focus,
+.entry-form .field select:focus {
   border-color: var(--primary) !important;
   box-shadow: 0 0 0 3px var(--primary-light) !important;
 }
 
 .entry-form .field.error input[type="text"],
-.entry-form .field.error textarea {
+.entry-form .field.error textarea,
+.entry-form .field.error select {
   border-color: var(--danger) !important;
   box-shadow: 0 0 0 3px var(--danger-light) !important;
 }
@@ -50,10 +54,38 @@
 }
 
 .entry-form .field input[type="text"]:disabled,
-.entry-form .field textarea:disabled {
+.entry-form .field textarea:disabled,
+.entry-form .field select:disabled {
   background: var(--bg) !important;
   color: var(--text-muted) !important;
   cursor: not-allowed;
+}
+
+.form-message {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.form-message--warning {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+}
+
+.form-message--error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+
+.field-message {
+  margin: 8px 0 0;
+  color: var(--danger);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 /* ── Form Actions ────────────────────────────────────────────── */
@@ -62,16 +94,24 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-top: 8px;
+  padding-top: 12px;
+}
+
+.form-actions .ui.primary.button {
+  padding: 12px 28px !important;
+  font-size: 0.9rem !important;
 }
 
 .cancel-btn {
   color: var(--text-secondary) !important;
-  background: var(--bg) !important;
+  background: var(--surface) !important;
   border: 1px solid var(--border) !important;
+  padding: 12px 24px !important;
+  font-size: 0.9rem !important;
 }
 
 .cancel-btn:hover {
-  background: var(--border-light) !important;
+  background: var(--bg-subtle) !important;
   color: var(--text) !important;
+  border-color: var(--text-muted) !important;
 }
