@@ -16,7 +16,7 @@ const EntrySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['billing', 'technical', 'account', 'general'],
+    enum: ['billing', 'technical', 'account', 'security', 'notification'],
     lowercase: true
   }
 }, {
