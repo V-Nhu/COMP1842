@@ -28,6 +28,10 @@
           <td data-label="Updated" class="date-cell">{{ formatDate(entry.updatedAt) }}</td>
           <td class="actions-cell">
             <router-link
+              class="ui mini button action-view"
+              :to="`/entries/${entry._id || entry.id}`"
+            >View</router-link>
+            <router-link
               class="ui mini button action-edit"
               :to="`/entries/${entry._id || entry.id}/edit`"
             >Edit</router-link>

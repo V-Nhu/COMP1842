@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './views/Home.vue'
 import Entries from './views/Entries.vue'
 import NewEntry from './views/NewEntry.vue'
+import ViewEntry from './views/ViewEntry.vue'
 import EditEntry from './views/EditEntry.vue'
 import Quiz from './views/Quiz.vue'
 
@@ -13,6 +14,7 @@ const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/entries', name: 'entries', component: Entries },
   { path: '/entries/new', name: 'new-entry', component: NewEntry },
+  { path: '/entries/:id', name: 'view-entry', component: ViewEntry, props: true },
   { path: '/entries/:id/edit', name: 'edit-entry', component: EditEntry, props: true },
   { path: '/quiz', name: 'quiz', component: Quiz }
 ]
