@@ -90,7 +90,8 @@ export default {
         { value: 'billing', label: 'Billing' },
         { value: 'technical', label: 'Technical' },
         { value: 'account', label: 'Account' },
-        { value: 'general', label: 'General' }
+        { value: 'security', label: 'Security' },
+        { value: 'notification', label: 'Notification' }
       ],
       submitted: false
     }
